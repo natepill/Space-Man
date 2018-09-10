@@ -1,6 +1,101 @@
-
 import random
 import string
+
+
+
+display_hangman = ["""
+       _________
+        |/
+        |
+        |
+        |
+        |
+        |
+        |___
+        """,
+
+    """
+       _________
+        |/   |
+        |
+        |
+        |
+        |
+        |
+        |___
+        """,
+
+    """
+       _________
+        |/   |
+        |   (_)
+        |
+        |
+        |
+        |
+        |___
+        """,
+
+    """
+       ________
+        |/   |
+        |   (_)
+        |    |
+        |    |
+        |
+        |
+        |___
+        """,
+
+
+    """
+       _________
+        |/   |
+        |   (_)
+        |   -|
+        |    |
+        |
+        |
+        |___
+        """,
+
+
+    """
+       _________
+        |/   |
+        |   (_)
+        |   -|-
+        |    |
+        |
+        |
+        |___
+        """,
+
+
+    """
+       ________
+        |/   |
+        |   (_)
+        |   -|-
+        |    |
+        |   /
+        |
+        |___
+        """,
+
+
+    """
+       ________
+        |/   |
+        |   (_)
+        |   -|-
+        |    |
+        |   /\
+        |
+        |___
+        """]
+display_hangman.reverse()
+
 
 
 def choose_word():
@@ -13,19 +108,21 @@ letter_dictionary = dict.fromkeys(string.ascii_lowercase, False)
 
 
 chosen_word = list(choose_word())
-print(chosen_word)
-print("Chosen word is: {}".format(chosen_word))
+# print(chosen_word)
+# print("Chosen word is: {}".format(chosen_word))
 playing = True
 
 word_to_list = []
 chances = 7
+hangman_index = 6
 
 
 
 def initially_display_word():
-    print(chosen_word)
+
     for letter in chosen_word:
         word_to_list.append("_")
+    print(word_to_list)
 
 
 
@@ -40,7 +137,8 @@ def test_letter(guessed_letter):
         if letter == guessed_letter:
             word_to_list[index] = letter
             letter_dictionary[guessed_letter] = True
-        elif letter not in chosen_word:
+        if letter not in chosen_word:
+            print("ELIF STATEMENT")
             letter_dictionary[guessed_letter] = True
             print("Else statement")
 
@@ -55,7 +153,7 @@ def check_input(letter_guess):
 
     if len(letter_guess) > 1:
         print("Only one character at a time!")
-        letter_guess = input("\nGuess again: ")
+
 
     try:
         if letter_dictionary[letter_guess] == True:
@@ -87,122 +185,7 @@ while playing:
 
     elif letter_guess not in chosen_word:
         print("Not in word")
+        print(display_hangman[hangman_index])
+        hangman_index -= 1
         chances -= 1
         print("You have {} chances left".format(chances))
-
-
-
-display_hangman =
-("""
-   _________
-    |/
-    |
-    |
-    |
-    |
-    |
-    |___
-    """,
-
-"""
-   _________
-    |/   |
-    |
-    |
-    |
-    |
-    |
-    |___
-    """,
-
-"""
-   _________
-    |/   |
-    |   (_)
-    |
-    |
-    |
-    |
-    |___
-    """,
-
-"""
-   ________
-    |/   |
-    |   (_)
-    |    |
-    |    |
-    |
-    |
-    |___
-    """,
-
-
-"""
-   _________
-    |/   |
-    |   (_)
-    |   /|
-    |    |
-    |
-    |
-    |___
-    """,
-
-
-"""
-   _________
-    |/   |
-    |   (_)
-    |   /|\
-    |    |
-    |
-    |
-    |___
-    """,
-
-
-"""
-   ________
-    |/   |
-    |   (_)
-    |   /|\
-    |    |
-    |   /
-    |
-    |___
-    """,
-
-
-"""
-   ________
-    |/   |
-    |   (_)
-    |   /|\
-    |    |
-    |   / \
-    |
-    |___
-    """)
-
-#
-#
-# def display_hangman():
-#     hangman= [""" """]
-# def display_body():
-#     pass
-#
-# def display_right_arm():
-#     pass
-#
-# def display_left_arm():
-#     pass
-#
-# def display_left_leg():
-#     pass
-#
-# def display_right_leg():
-#     pass
-#
-# def display_blast_off():
-#     pass
