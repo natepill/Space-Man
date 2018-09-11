@@ -90,7 +90,7 @@ display_hangman = ["""
         |   (_)
         |   -|-
         |    |
-        |   /\
+        |   /-\
         |
         |___
         """]
@@ -104,14 +104,13 @@ def choose_word():
 
 
 mystery_words = ["magic", "special", "dummy", "astro", "limitation", "hateful", "manipulation","careful"]
-letter_dictionary = dict.fromkeys(string.ascii_lowercase, False)
+letter_list = list(string.ascii_lowercase)
 
 
 chosen_word = list(choose_word())
 # print(chosen_word)
 # print("Chosen word is: {}".format(chosen_word))
 playing = True
-
 word_to_list = []
 chances = 7
 hangman_index = 6
@@ -119,16 +118,12 @@ hangman_index = 6
 
 
 def initially_display_word():
-
     for letter in chosen_word:
         word_to_list.append("_")
     print(word_to_list)
 
 
-
-
 initially_display_word()
-
 
 
 def test_letter(guessed_letter):
@@ -136,16 +131,13 @@ def test_letter(guessed_letter):
     for letter in chosen_word:
         if letter == guessed_letter:
             word_to_list[index] = letter
-            letter_dictionary[guessed_letter] = True
+
         if letter not in chosen_word:
             print("ELIF STATEMENT")
-            letter_dictionary[guessed_letter] = True
-            print("Else statement")
 
         index += 1
 
 def check_input(letter_guess):
-
 
     if letter_guess.isalpha() == False:
         print("Only alphabet input allowed")
@@ -155,11 +147,9 @@ def check_input(letter_guess):
         print("Only one character at a time!")
 
 
-    try:
-        if letter_dictionary[letter_guess] == True:
-            print("You already guessed that letter!")
-    except KeyError:
-        pass
+
+    if letter_guess in letter_list:
+        print("You already guessed that letter!")
 
 
 while playing:
@@ -186,6 +176,8 @@ while playing:
     elif letter_guess not in chosen_word:
         print("Not in word")
         print(display_hangman[hangman_index])
+        word_string = "".join(word_to_list)
+        print(word_string)
         hangman_index -= 1
         chances -= 1
         print("You have {} chances left".format(chances))
