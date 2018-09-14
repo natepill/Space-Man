@@ -104,7 +104,10 @@ def choose_word():
 
 
 mystery_words = ["magic", "special", "dummy", "astro", "limitation", "hateful", "manipulation","careful"]
-letter_list = list(string.ascii_lowercase)
+letter_list = dict.fromkeys(string.ascii_lowercase, False)
+letter_guess = ""
+
+
 
 
 chosen_word = list(choose_word())
@@ -139,17 +142,22 @@ def test_letter(guessed_letter):
 
 def check_input(letter_guess):
 
-    if letter_guess.isalpha() == False:
-        print("Only alphabet input allowed")
+    good_input = True
+    while good_input:
 
+        if len(letter_guess) > 1:
+            print("Only one character at a time!")
+            break
 
-    if len(letter_guess) > 1:
-        print("Only one character at a time!")
+        if letter_guess.isalpha() == False:
+            print("Only alphabet input allowed")
+            break
 
+        if letter_list[letter_guess] == True:
+            print("You already guessed that letter!")
+            break
 
-
-    if letter_guess in letter_list:
-        print("You already guessed that letter!")
+        return
 
 
 while playing:
@@ -162,12 +170,13 @@ while playing:
         print("YOU LOSE!")
         break
 
-    letter_guess = input("\nGuess a letter: ")
+    letter_guess = input("Guess a letter: ")
 
     check_input(letter_guess)
 
 
     if letter_guess.lower() in chosen_word:
+        letter_list[letter_guess] = True
         print("Letter Found!")
         test_letter(letter_guess)
         word_string = "".join(word_to_list)
